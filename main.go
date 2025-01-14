@@ -1,4 +1,4 @@
-// первая версия программы по подсчету индекса массы тела BMI
+// simple benchmark for people. Check you bmi for input you heigth and mass
 package main
 
 import (
@@ -7,14 +7,14 @@ import (
 )
 
 func main() {
-	const mbiPower = 2
-	var userHeightMeters float64
-	var userMassKilograms float64
-	fmt.Println("-- Программа по подсчету индекса массы тела --")
-	fmt.Print("Введите ваш рост в метрах -> ")
-	fmt.Scan(&userHeightMeters)
-	fmt.Print("Введите ваш вес в полных килограммах -> ")
-	fmt.Scan(&userMassKilograms)
-	mbi := userMassKilograms / math.Pow(userHeightMeters, mbiPower)
-	fmt.Printf("Ваш индекс массы тела равен: %.2f\n", mbi)
+	BMIpower := 2
+	var userHeightSantimetrs float64
+	var userMassKilogramm float64
+	fmt.Println("-- Калькулятор массы индкса человека --")
+	fmt.Print("-- Введите свой рост в сантиметрах: ")
+	fmt.Scan(&userHeightSantimetrs)
+	fmt.Print("-- Введите свой вес в киллограммах: ")
+	fmt.Scan(&userMassKilogramm)
+	bmi := userMassKilogramm / math.Pow(userHeightSantimetrs/100, float64(BMIpower))
+	fmt.Printf("Индекс массы вашего тела равен: %.0f\n", bmi)
 }
