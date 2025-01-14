@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	BMIpower := 2
+	const BMIpower = 2
 	var userHeightSantimetrs float64
 	var userMassKilogramm float64
 	fmt.Println("-- Калькулятор массы индкса человека --")
