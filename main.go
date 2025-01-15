@@ -6,15 +6,19 @@ import (
 	"fmt"
 	"log"
 	"math"
+	"strconv"
 	"strings"
 )
 
 const BMIpower = 2
 
 // Функция для расчета bmi
-func calculateBMI(height float64, mass float64) float64 {
+func calculateBMI(height float64, mass float64) (float64, error) {
+	if height <= 0 || mass <= 0 {
+		return 0, errors.New("unkorrect height or mass")
+	}
 	bmi := mass / math.Pow(height/100, BMIpower)
-	return bmi
+	return bmi, nil
 }
 
 // Функция для вывода результата
@@ -41,13 +45,24 @@ func outputResult(bmi float64) {
 
 // Функция для получения пользовательских данных
 func getUserInput() (float64, float64) {
-	var userHeightSantimetrs float64
-	var userMassKilogramm float64
+	var userHeightSantimetrs string
+	var userMassKilogramm string
 	fmt.Print("Введите свой рост в сантиметрах: ")
 	fmt.Scan(&userHeightSantimetrs)
 	fmt.Print("Введите свой вес в киллограммах: ")
 	fmt.Scan(&userMassKilogramm)
-	return userHeightSantimetrs, userMassKilogramm
+	correctHeight, err := strconv.ParseFloat(userHeightSantimetrs, 64)
+	if err != nil {
+		newErr := errors.New("вес необходимо задавать цифрами")
+		log.Fatal(newErr)
+	}
+	correctMass, err := strconv.ParseFloat(userMassKilogramm, 64)
+	if err != nil {
+		newErr := errors.New("вес необходимо задавать цифрами")
+		log.Fatal(newErr)
+	}
+
+	return correctHeight, correctMass
 }
 
 func oneMoreTime() bool {
@@ -61,7 +76,11 @@ func main() {
 	fmt.Println("-- Калькулятор массы индкса человека --")
 	for {
 		heigth, mass := getUserInput()
-		outputResult(calculateBMI(heigth, mass))
+		bmi, err := calculateBMI(heigth, mass)
+		if err != nil {
+			log.Fatal(err)
+		}
+		outputResult(bmi)
 		if !oneMoreTime() {
 			break
 		}
