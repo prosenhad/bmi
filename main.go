@@ -6,15 +6,32 @@ import (
 	"math"
 )
 
-func main() {
-	const BMIpower = 2
+const BMIpower = 2
+
+// Функция для расчета bmi
+func calculateBMI(height float64, mass float64) float64 {
+	bmi := mass / math.Pow(height/100, BMIpower)
+	return bmi
+}
+
+// Функция для вывода результата
+func outputResult(bmi float64) {
+	fmt.Printf("Индекс массы вашего тела равен: %.2f\n", bmi)
+}
+
+// Функция для получения пользовательских данных
+func getUserInput() (float64, float64) {
 	var userHeightSantimetrs float64
 	var userMassKilogramm float64
-	fmt.Println("-- Калькулятор массы индкса человека --")
-	fmt.Print("-- Введите свой рост в сантиметрах: ")
+	fmt.Print("Введите свой рост в сантиметрах: ")
 	fmt.Scan(&userHeightSantimetrs)
-	fmt.Print("-- Введите свой вес в киллограммах: ")
+	fmt.Print("Введите свой вес в киллограммах: ")
 	fmt.Scan(&userMassKilogramm)
-	bmi := userMassKilogramm / math.Pow(userHeightSantimetrs/100, float64(BMIpower))
-	fmt.Printf("Индекс массы вашего тела равен: %.0f\n", bmi)
+	return userHeightSantimetrs, userMassKilogramm
+}
+
+func main() {
+	fmt.Println("-- Калькулятор массы индкса человека --")
+	heigth, mass := getUserInput()
+	outputResult(calculateBMI(heigth, mass))
 }
