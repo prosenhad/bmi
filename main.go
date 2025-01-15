@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"math"
+	"strings"
 )
 
 const BMIpower = 2
@@ -49,8 +50,22 @@ func getUserInput() (float64, float64) {
 	return userHeightSantimetrs, userMassKilogramm
 }
 
+func oneMoreTime() bool {
+	var answer string
+	fmt.Print("Еще разок? y/n: ")
+	fmt.Scan(&answer)
+	return strings.ToLower(answer) == "y"
+}
+
 func main() {
 	fmt.Println("-- Калькулятор массы индкса человека --")
-	heigth, mass := getUserInput()
-	outputResult(calculateBMI(heigth, mass))
+	for {
+		heigth, mass := getUserInput()
+		outputResult(calculateBMI(heigth, mass))
+		if !oneMoreTime() {
+			break
+		}
+		fmt.Println("------------------------")
+	}
+
 }
