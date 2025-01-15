@@ -2,7 +2,9 @@
 package main
 
 import (
+	"errors"
 	"fmt"
+	"log"
 	"math"
 )
 
@@ -18,24 +20,20 @@ func calculateBMI(height float64, mass float64) float64 {
 func outputResult(bmi float64) {
 	if bmi < 16 {
 		fmt.Printf("Индекс %.2f является показателем сильного дефицита массы тела\n", bmi)
-	}
-	if bmi >= 16 && bmi < 18.5 {
+	} else if bmi < 18.5 {
 		fmt.Printf("Индекс %.2f является показателем дефицита массы тела\n", bmi)
-	}
-	if bmi >= 18.5 && bmi < 25 {
+	} else if bmi < 25 {
 		fmt.Printf("Индекс %.2f является показателем нормальной массы тела \n", bmi)
-	}
-	if bmi >= 25 && bmi < 30 {
+	} else if bmi < 30 {
 		fmt.Printf("Индекс %.2f является показателем избыточной массы тела \n", bmi)
-	}
-	if bmi >= 30 && bmi < 35 {
+	} else if bmi < 35 {
 		fmt.Printf("Индекс %.2f является показателем 1-ой степени ожирения \n", bmi)
-	}
-	if bmi >= 35 && bmi < 40 {
+	} else if bmi < 40 {
 		fmt.Printf("Индекс %.2f является показателем 2-ой степени ожирения \n", bmi)
-	}
-	if bmi >= 40 {
+	} else if bmi >= 40 {
 		fmt.Printf("Индекс %.2f является показателем 3-ой степени ожирения \n", bmi)
+	} else {
+		log.Fatal(errors.New("неверные данные"))
 	}
 }
 
